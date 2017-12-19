@@ -46,3 +46,45 @@ com.mh.redis.jedis.core.JedisClient
 JedisPlugin.unplug();
 
 ```
+## 一些工具类
+- 先进先出队列
+
+```java
+com.mh.redis.jedis.tools.queue.RedisQueue
+// sample code
+public void testPutToQueue() {
+	JedisClient cli = JedisClientFactory.get("1", 0);
+	RedisQueue queue = new RedisQueue(cli, "order");
+	for (int i = 0; i < 1000; i++) {
+		queue.push(String.valueOf(i));
+	}
+}
+public void getFromQueue() {
+	JedisClient cli = JedisClientFactory.get("1", 0);
+	RedisQueue queue = new RedisQueue(cli, "order");
+	while (true) {
+		System.out.println(queue.popWhenHasValue());
+		System.out.println("waiting...");
+	}
+}	
+```
+- 计数器
+
+```java
+com.mh.redis.jedis.tools.counter.RedisCounter
+// sample code
+public void testAddPassErrorTimes3() {
+	JedisClient cli = JedisClientFactory.get("1", 0);
+	RedisCounter counter = new RedisCounter(cli, "passCounter:user1");
+	int current = counter.getCurrent();
+	System.out.println(current);
+	counter.increase(1);
+	counter.increase(4);
+	current = counter.getCurrent();
+	System.out.println(current);
+}
+
+```
+
+## TODO List
+- 工具类的开发
