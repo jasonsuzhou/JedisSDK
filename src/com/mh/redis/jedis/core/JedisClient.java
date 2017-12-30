@@ -331,6 +331,18 @@ public class JedisClient {
 			returnJedis(jedis);
 			return row;
 		}
+		
+		/**
+		 * 
+		 * @param key
+		 * @return
+		 */
+		public long del(String... key) {
+			Jedis jedis = getJedis();
+			long row = jedis.del(key);
+			returnJedis(jedis);
+			return row;
+		}
 
 	}
 

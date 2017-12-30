@@ -85,6 +85,20 @@ public void testAddPassErrorTimes3() {
 }
 
 ```
+- ID生成器
+
+```java
+com.mh.redis.jedis.tools.idgen.IdWorker
+// sample code
+public void testSingle() {
+	JedisClient cli = JedisClientFactory.get("1", 0);
+	IdWorker worker = new IdWorker(cli, "RR");
+	for (int i = 0; i < 10000; i++) {
+		String id = worker.next();
+		System.out.println(id + " " + id.length());
+	}
+}
+```
 
 ## TODO List
 - 工具类的开发
