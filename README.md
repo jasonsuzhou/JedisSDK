@@ -99,6 +99,24 @@ public void testSingle() {
 	}
 }
 ```
+- 发布订阅工具类
+
+```java
+com.mh.redis.jedis.tools.idgen.AbstractSubscriber
+// sample code
+public static void main(String[] args) {
+		String redisIp = "127.0.0.1";
+		int reidsPort = 6379;
+		JedisPool jedisPool = new JedisPool(new JedisPoolConfig(), redisIp, reidsPort);
+		System.out.println(String.format("redis pool is starting, redis ip %s, redis port %d", redisIp, reidsPort));
+		// extends the java class AbstractSubscriber
+		DemoConsumer consumer = new DemoConsumer();
+		consumer.start(jedisPool);
+		// publish the message
+		Publisher publisher = new Publisher(jedisPool, consumer.channelName());
+		publisher.pub("hello jason");
+}
+```
 
 ## TODO List
 - 工具类的开发

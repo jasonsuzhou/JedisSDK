@@ -41,6 +41,7 @@ public class IdWorkerTest {
 	public void testMulti() throws InterruptedException {
 		JedisClient cli = JedisClientFactory.get("1", 0);
 		IdWorker worker = new IdWorker(cli, "RR");
+		
 		Thread t1 = new Thread(() -> {
 			while (true) {
 				System.out.println(worker.next());
